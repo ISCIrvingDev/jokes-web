@@ -9,7 +9,7 @@
       "DOM"
     ],
     "esModuleInterop": true,
-    "allowJs": true,
+    "allowJs": false,
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
@@ -17,21 +17,34 @@
     "baseUrl": ".",
     "paths": {
       "~/*": [
-        "./*"
+        "./src/*"
       ],
       "@/*": [
-        "./*"
+        "./src/*"
+      ],
+      "@modules/*": [
+        "./src/modules/*"
+      ],
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+      "@presentation/*": [
+        "./src/presentation/*"
       ]
     },
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
-      "@types/node"
+      "@types/node",
+      "vuetify/types"
     ]
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules",
-    ".nuxt",
+    "src/presentation/.nuxt",
     "dist"
   ]
 }

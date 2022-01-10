@@ -26,5 +26,6 @@
   "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
   "vetur.format.defaultFormatter.html": "js-beautify-html",
   "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "vetur.format.defaultFormatter.ts": "vscode-typescript",
   "vue3snippets.enable-compile-vue-file-on-did-save-code": false
 }

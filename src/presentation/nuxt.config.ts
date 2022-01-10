@@ -1,8 +1,13 @@
+import path from 'path'
+import { NuxtConfig } from '@nuxt/types'
 import colors from 'vuetify/es5/util/colors'
 
-export default {
+const config: NuxtConfig = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+
+  rootDir: '.',
+  srcDir: 'src/presentation',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -32,7 +37,9 @@ export default {
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    { path: '~/components', prefix: 'app' }
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -75,5 +82,25 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend (config, { isDev, isClient }) {
+      // @ts-ignore "Property 'buildContext' does not exist on type 'NuxtOptionsBuild'"
+      const rootDir: string = this.buildContext.options.rootDir
+      const joinSrc = (s: string) => path.join(rootDir, 'src', s)
+
+      if (!config?.resolve?.alias) {
+        throw new Error('webpack config aliases not found!')
+      }
+
+      config.resolve.alias['@modules'] = joinSrc('modules')
+      config.resolve.alias['@shared'] = joinSrc('shared')
+      config.resolve.alias['@presentation'] = joinSrc('presentation')
+
+      // Enable debug
+      if (isDev) {
+        config.devtool = isClient ? 'source-map' : 'inline-source-map'
+      }
+    }
   }
 }
+
+export default config
